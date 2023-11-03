@@ -1,0 +1,41 @@
+version: '2'
+services:
+
+  # The Application
+  app:
+    build:
+      context: ./
+      dockerfile: app.dockerfile
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    environment:
+      - "DB_PORT=3306"
+      - "DB_HOST=database"
+
+  # The Web Server
+  web:
+    build:
+      context: ./
+      dockerfile: 2.dockerfile
+    working_dir: /var/www
+    volumes_from:
+      - app
+    ports:
+      - 8081:81
+
+  # The Database
+  database:
+    image: mysql:5.6
+    volumes:
+      - dbdata:/var/lib/mysql
+    environment:
+      - "MYSQL_DATABASE=meeting"
+      - "MYSQL_USER=dev"
+      - "MYSQL_PASSWORD=1234"
+      - "MYSQL_ROOT_PASSWORD=1234"
+    ports:
+      - "33061:3306"
+
+volumes:
+  dbdata:
