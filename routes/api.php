@@ -21,8 +21,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // 会议室列表 -
 Route::get('/room/lists', 'ApiController@getRoomLists');
 // 会议室详情
-Route::get('/room/{id}', 'ApiController@getRoom');
+Route::get('/room/getRoom/{id}', 'ApiController@getRoom');
 // 预定会议室
-Route::get('/room/orderroom/{$id}', 'ApiController@orderRoom');
+Route::post('/room/orderroom/{id}', 'ApiController@orderRoom');
 // 退订会议室
-Route::get('/room/unsubscribroom/{$id}', 'ApiController@unsubscribRoom');
+Route::post('/room/unsubscribroom/{id}', 'ApiController@unsubscribRoom');
